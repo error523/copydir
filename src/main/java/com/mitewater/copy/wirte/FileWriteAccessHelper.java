@@ -1,6 +1,7 @@
 package com.mitewater.copy.wirte;
 
 import com.mitewater.copy.constant.SystemConsts;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,21 +29,28 @@ public class FileWriteAccessHelper {
         try {
             File file = new File(outFilePath);
             if(!file.exists()){
-                file.createNewFile();
+                if(file.isDirectory()){
+                    file.mkdirs();
+                }else{
+                    FileUtils.touch(file);
+                }
             }else{
                 //保留做替换使用
             }
             FileChannel fileChannel = new RandomAccessFile(file,"rws").getChannel();
-            while(inFileChannel.read(byteBuffer)!=-1){
+            while (inFileChannel.read(byteBuffer)!=-1){
                 byteBuffer.flip();
                 while(byteBuffer.hasRemaining()){
                     fileChannel.write(byteBuffer);
                 }
+                byteBuffer.clear();
             }
+            fileChannel.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
