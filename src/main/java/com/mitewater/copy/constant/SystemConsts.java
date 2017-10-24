@@ -12,5 +12,5 @@ public class SystemConsts {
     public static final int THREAD_POOL_SIZE = 8;
     public static final String SOURCE_PATH_URL = "D:\\c";
     public static final String TARGET_PATH_URL = "E:\\c";
-    public static final int BUFFER_ALLOCATE_SIZE = 1024;
+    public static final int BUFFER_ALLOCATE_SIZE = 40960;
 }

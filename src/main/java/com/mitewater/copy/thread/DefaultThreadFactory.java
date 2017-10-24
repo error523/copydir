@@ -26,6 +26,7 @@ public class DefaultThreadFactory implements ThreadFactory{
         } else {
             threadTypeName = THREAD_PREFIX_NAME + "write-" + threadReadCount.getAndAdd(1);
             thread = new CopyDirThread(r, threadTypeName);
+            thread.setDaemon(true);
         }
         return thread;
     }
